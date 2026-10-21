@@ -1,0 +1,20 @@
+{
+  "name": "paperclip-ai-installer",
+  "version": "0.1.0",
+  "description": "npx installer for the InfinitySoftware-House Paperclip fork (project file uploads)",
+  "type": "module",
+  "bin": {
+    "paperclip-ai-installer": "bin/install.mjs"
+  },
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
