@@ -58,9 +58,11 @@ if (!has("git")) fail("git is required but was not found on PATH.");
 // `pnpm build` compiles the native runner (cargo build --release); rustup then
 // fetches the toolchain pinned by the fork, and a C linker (build-essential) is needed.
 if (!has("cargo")) {
-  fail("Rust is required to build the native runner but `cargo` was not found.
-  Install it: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-  Then open a new shell. On Debian/Ubuntu also: sudo apt-get install -y build-essential");
+  fail([
+    "Rust is required to build the native runner but `cargo` was not found.",
+    "  Install it: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y",
+    "  Then open a new shell. On Debian/Ubuntu also: sudo apt-get install -y build-essential",
+  ].join("\n"));
 }
 if (process.platform === "win32") {
   console.warn("Warning: on native Windows the browser sign-in for Claude/Codex does not work. Use Linux, macOS or WSL for that flow.");
