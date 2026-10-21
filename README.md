@@ -10,14 +10,11 @@ but clones and builds the fork instead of using the `paperclipai` npm package.
 npx github:InfinitySoftware-House/paperclip-installer
 ```
 
-The repository is private, so the machine needs GitHub access: either a git credential
-helper, or a token in the environment:
+The repositories are public, so no token is needed. If you point `--repo` at a private fork,
+set `GITHUB_TOKEN` (or use a git credential helper).
 
-```bash
-GITHUB_TOKEN=<token with repo read access> npx github:InfinitySoftware-House/paperclip-installer
-```
-
-Requirements: Node 24+, git, a non-root user. pnpm is enabled through corepack if missing.
+Requirements: Node 24+, git, Rust (`cargo`, needed to compile the native runner) with a C linker
+(`build-essential` on Debian/Ubuntu), and a non-root user. pnpm is enabled through corepack if missing.
 
 ## What it does
 

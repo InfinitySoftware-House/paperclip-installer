@@ -24,7 +24,7 @@ Options:
   -h, --help        Show this help
 
 A private fork needs credentials: set GITHUB_TOKEN (or use a git credential helper).
-Requires Node ${MIN_NODE_MAJOR}+ and git. Do not run as root.`;
+Requires Node ${MIN_NODE_MAJOR}+, git and Rust (cargo). Do not run as root.`;
 
 function fail(message) {
   console.error(`\nError: ${message}`);
@@ -55,6 +55,13 @@ if (typeof process.getuid === "function" && process.getuid() === 0) {
   fail("Do not run as root. Create a service user first:\n  sudo useradd --system --create-home --shell /bin/bash paperclip\n  sudo -iu paperclip");
 }
 if (!has("git")) fail("git is required but was not found on PATH.");
+// `pnpm build` compiles the native runner (cargo build --release); rustup then
+// fetches the toolchain pinned by the fork, and a C linker (build-essential) is needed.
+if (!has("cargo")) {
+  fail("Rust is required to build the native runner but `cargo` was not found.
+  Install it: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  Then open a new shell. On Debian/Ubuntu also: sudo apt-get install -y build-essential");
+}
 if (process.platform === "win32") {
   console.warn("Warning: on native Windows the browser sign-in for Claude/Codex does not work. Use Linux, macOS or WSL for that flow.");
 }
